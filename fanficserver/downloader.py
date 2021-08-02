@@ -5,7 +5,7 @@ from email.mime import multipart, base
 from fanficfare import cli
 
 
-def send_fic(url : str, email_address : str, password : str, kindle_email):
+async def send_fic(url : str, email_address : str, password : str, kindle_email):
     port = 587
     fic_filename = download_mobi_and_get_file_name(url)
     print('downloaded!')
