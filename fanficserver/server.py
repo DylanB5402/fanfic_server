@@ -2,6 +2,8 @@ import flask
 from flask import request
 import asyncio
 
+from fanficserver import downloader
+
 app = flask.Flask(__name__, static_folder="../static/")
 
 @app.route('/', methods=['GET'])
@@ -10,5 +12,7 @@ async def index():
 
 @app.route('/send/', methods = ['POST', 'GET'])   
 async def send(): 
+    
     return str(request.form['url'])
+    
 
