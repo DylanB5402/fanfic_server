@@ -13,6 +13,9 @@
             <input type="submit" value="Submit">
             <input type="reset">
         </form>
-        <!-- <a href = "/signup.html">Make a new account</a> -->
+        <br>
+        {% for id, doc in fic.items() %}
+            <a href = {{doc.url }}> {{ doc.url }}</a> <br>
+        {% endfor %}
     </body>
 </html>

@@ -2,18 +2,26 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
+try:
+    from fanficserver import url_parser
+except:
+    import url_parser
+
 class FanFicDatabase():
 
     def __init__(self):
         cred = credentials.Certificate("keys/fanfic-server-firebase-adminsdk-r288u-1a705e4916.json")
         firebase_admin.initialize_app(cred)
         self.db = firestore.client()
-        doc_ref = self.db.collection(u'users').document(u'aturing')
-        doc_ref.set({
-            u'first': u'Alan',
-            u'middle': u'Mathison',
-            u'last': u'Turing',
-            u'born': 1912
-        })
+        # doc_ref = self.db.collection('users').document('aturing').delete()
+    
+    def add_fic(self, url : str):
+        id = url_parser.get_id_str(url)
+        self.db.collection('fanfics').document(id).set({'title' : '', 'url' : url})
 
-d = FanFicDatabase()
+    def get_all_fics(self):
+        fics = {}
+        docs = self.db.collection('fanfics').stream()
+        for doc in docs:
+            fics.update({doc.id : doc.to_dict()})
+        return fics

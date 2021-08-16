@@ -4,15 +4,28 @@ import asyncio
 
 from fanficserver import downloader
 
-app = flask.Flask(__name__, static_folder="../static/")
+try:
+    from fanficserver.fanfic_database import FanFicDatabase
+except:
+    from fanfic_database import FanFicDatabase
+
+fdb = FanFicDatabase()
+
+# app = flask.Flask(__name__, static_folder="../static/")
+app = flask.Flask(__name__)
 
 @app.route('/', methods=['GET'])
 async def index():
-    return flask.send_from_directory('../static/', 'index.html')
+    fic = fdb.get_all_fics()
+    print('-----------')
+    print(fic)
+    print('-----------')
+    return flask.render_template('index.html', fic=fic, taco="hello world")
 
 @app.route('/send/', methods = ['POST', 'GET'])   
 async def send(): 
-    
-    return str(request.form['url'])
+    fdb.add_fic(request.form['url'])
+    # return str(request.form['url'])
+    return flask.redirect(flask.url_for('index'))
     
 

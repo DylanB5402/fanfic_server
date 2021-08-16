@@ -10,8 +10,6 @@ How to run:
     
 Design Decisions:
 
-- Run app on Heroku
-
 - Receive url via http request
 
     - Save url to Firebase Database
@@ -27,6 +25,7 @@ Design Decisions:
     - Respond with 202 success status code
 
     - Send url to be downloaded + emailed by worker process 
+
 
 
 
