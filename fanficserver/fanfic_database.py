@@ -3,6 +3,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 import os
+import json
 
 try:
     from fanficserver import url_parser
@@ -12,7 +13,7 @@ except:
 class FanFicDatabase():
 
     def __init__(self):
-        cred = credentials.Certificate(JSONDecoder.decode(os.environ['FIREBASE_KEY']))
+        cred = credentials.Certificate(json.loads(os.environ['FIREBASE_KEY']))
         # cred = credentials.Certificate("keys/fanfic-server-firebase-adminsdk-r288u-1a705e4916.json")
         firebase_admin.initialize_app(cred)
         self.db = firestore.client()
