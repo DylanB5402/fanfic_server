@@ -17,10 +17,10 @@ app = flask.Flask(__name__)
 @app.route('/', methods=['GET'])
 async def index():
     fic = fdb.get_all_fics()
-    print('-----------')
-    print(fic)
-    print('-----------')
-    return flask.render_template('index.html', fic=fic, taco="hello world")
+    # print('-----------')
+    # print(fic)
+    # print('-----------')
+    return flask.render_template('index.html', fic=fic)
 
 @app.route('/send/', methods = ['POST', 'GET'])   
 async def send(): 
@@ -28,4 +28,6 @@ async def send():
     # return str(request.form['url'])
     return flask.redirect(flask.url_for('index'))
     
-
+@app.route('/test/', methods = ['GET'])
+async def test():
+    return "687"
