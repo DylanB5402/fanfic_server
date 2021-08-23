@@ -1,17 +1,17 @@
 import time
 import zmq
+from zmq.sugar.frame import Message
 
 context = zmq.Context()
-socket = context.socket(zmq.REP)
+topic = 'taco'
+socket = context.socket(zmq.SUB)
+socket.setsockopt_string(zmq.SUBSCRIBE, topic)
 socket.connect("tcp://127.0.0.1:5555")
 
 while True:
     #  Wait for next request from client
-    message = socket.recv()
-    print(f"Received request: {message}")
+    message = socket.recv().decode('UTF-8')
+    print(str(message).split())
+    print(str(message).split()[1])
 
-    #  Do some 'work'
-    time.sleep(1)
 
-    #  Send reply back to client
-    socket.send_string("World")

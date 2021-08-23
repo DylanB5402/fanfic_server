@@ -12,9 +12,10 @@ except:
 
 context = zmq.Context()
 fdb = FanFicDatabase()
+print('bruh')
 
 # app = flask.Flask(__name__, static_folder="../static/")
-socket = context.socket(zmq.REQ)
+socket = context.socket(zmq.PUB)
 socket.bind("tcp://127.0.0.1:5555")
 app = flask.Flask(__name__)
 
@@ -31,5 +32,5 @@ async def send():
     
 @app.route('/test/', methods = ['GET'])
 async def test():
-    socket.send_string('hello world')
+    socket.send_string("taco " + "helloWorld!")
     return "687"
