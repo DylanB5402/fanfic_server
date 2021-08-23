@@ -1,6 +1,7 @@
 import flask
 from flask import request
 import asyncio
+import zmq
 
 from fanficserver import downloader
 
@@ -9,17 +10,17 @@ try:
 except:
     from fanfic_database import FanFicDatabase
 
+context = zmq.Context()
 fdb = FanFicDatabase()
 
 # app = flask.Flask(__name__, static_folder="../static/")
+socket = context.socket(zmq.REQ)
+socket.bind("tcp://127.0.0.1:5555")
 app = flask.Flask(__name__)
 
 @app.route('/', methods=['GET'])
 async def index():
     fic = fdb.get_all_fics()
-    # print('-----------')
-    # print(fic)
-    # print('-----------')
     return flask.render_template('index.html', fic=fic)
 
 @app.route('/send/', methods = ['POST', 'GET'])   
@@ -30,4 +31,5 @@ async def send():
     
 @app.route('/test/', methods = ['GET'])
 async def test():
+    socket.send_string('hello world')
     return "687"
