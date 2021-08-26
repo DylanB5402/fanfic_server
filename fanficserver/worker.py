@@ -1,17 +1,16 @@
-import time
-import zmq
-from zmq.sugar.frame import Message
+import os
 
-# context = zmq.Context()
-# topic = 'taco'
-# socket = context.socket(zmq.SUB)
-# socket.setsockopt_string(zmq.SUBSCRIBE, topic)
-# socket.connect("tcp://127.0.0.1:5555")
+import redis
+from rq import Worker, Queue, Connection
 
-# while True:
-#     #  Wait for next request from client
-#     message = socket.recv().decode('UTF-8')
-#     print(str(message).split())
-#     print(str(message).split()[1])
+listen = ['high', 'default', 'low']
 
+redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
+# print(redis_url)
 
+conn = redis.from_url(redis_url)
+
+if __name__ == '__main__':
+    with Connection(conn):
+        worker = Worker(map(Queue, listen))
+        worker.work()

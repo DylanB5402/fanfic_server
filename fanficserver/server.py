@@ -1,23 +1,24 @@
 import flask
 from flask import request
 import asyncio
-import zmq
 
 from fanficserver import downloader
+from rq import Queue
+# from worker import conn
 
 try:
     from fanficserver.fanfic_database import FanFicDatabase
+    from fanficserver.worker import conn
 except:
+    from worker import conn
     from fanfic_database import FanFicDatabase
 
-# context = zmq.Context()
 fdb = FanFicDatabase()
 print('bruh')
 
 app = flask.Flask(__name__, static_folder="../static/")
-# socket = context.socket(zmq.PUB)
-# socket.bind("tcp://127.0.0.1:5555")
-# app = flask.Flask(__name__)
+q = Queue(connection=conn)
+
 
 @app.route('/', methods=['GET'])
 async def index():
@@ -30,7 +31,14 @@ async def send():
     # return str(request.form['url'])
     return flask.redirect(flask.url_for('index'))
     
+def taco(num):
+    # print(num, 687)
+    # fdb.test(num)
+    fdb.add_fic('cheese')
+
 @app.route('/test/', methods = ['GET'])
 async def test():
     # socket.send_string("taco " + "helloWorld!")
+    # q.enqueue(taco, 12)
+    q.enqueue(taco, 12)
     return "687"

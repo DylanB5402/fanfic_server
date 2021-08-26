@@ -26,6 +26,7 @@ Design Decisions:
 
     - Send url to be downloaded + emailed by worker process 
 
-
-
-
+Commands:
+start redis: sudo service redis-server start
+stop redis: sudo service redis-server stop
+active venv: source venv/bin/activate

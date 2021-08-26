@@ -33,3 +33,6 @@ class FanFicDatabase():
         for doc in docs:
             fics.update({doc.id : doc.to_dict()})
         return fics
+
+    def test(self, num):
+        print(687, num)
