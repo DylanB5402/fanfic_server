@@ -10,14 +10,14 @@ try:
 except:
     from fanfic_database import FanFicDatabase
 
-context = zmq.Context()
+# context = zmq.Context()
 fdb = FanFicDatabase()
 print('bruh')
 
 # app = flask.Flask(__name__, static_folder="../static/")
-socket = context.socket(zmq.PUB)
-socket.bind("tcp://127.0.0.1:5555")
-app = flask.Flask(__name__)
+# socket = context.socket(zmq.PUB)
+# socket.bind("tcp://127.0.0.1:5555")
+# app = flask.Flask(__name__)
 
 @app.route('/', methods=['GET'])
 async def index():
@@ -32,5 +32,5 @@ async def send():
     
 @app.route('/test/', methods = ['GET'])
 async def test():
-    socket.send_string("taco " + "helloWorld!")
+    # socket.send_string("taco " + "helloWorld!")
     return "687"
