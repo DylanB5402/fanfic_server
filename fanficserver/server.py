@@ -14,7 +14,7 @@ except:
 fdb = FanFicDatabase()
 print('bruh')
 
-# app = flask.Flask(__name__, static_folder="../static/")
+app = flask.Flask(__name__, static_folder="../static/")
 # socket = context.socket(zmq.PUB)
 # socket.bind("tcp://127.0.0.1:5555")
 # app = flask.Flask(__name__)
