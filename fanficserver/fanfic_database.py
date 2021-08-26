@@ -13,8 +13,11 @@ except:
 class FanFicDatabase():
 
     def __init__(self):
-        cred = credentials.Certificate(json.loads(os.environ['FIREBASE_KEY']))
-        # cred = credentials.Certificate("keys/fanfic-server-firebase-adminsdk-r288u-1a705e4916.json")
+        cred = None
+        try:
+            cred = credentials.Certificate(json.loads(os.environ['FIREBASE_KEY']))
+        except:
+            cred = credentials.Certificate("keys/fanfic-server-firebase-adminsdk-r288u-1a705e4916.json")
         firebase_admin.initialize_app(cred)
         print('taco taoc')
         self.db = firestore.client()
