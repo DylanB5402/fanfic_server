@@ -25,8 +25,8 @@ class FanFicDatabase():
     def add_fic(self, url : str):
         id = url_parser.get_id_str(url)
         self.db.collection('fanfics').document(id).set({'title' : '', 'url' : url})
+        self.db.collection('downloads').document(id).set({'url' : url})
         
-
     def get_all_fics(self):
         fics = {}
         docs = self.db.collection('fanfics').stream()
@@ -34,5 +34,15 @@ class FanFicDatabase():
             fics.update({doc.id : doc.to_dict()})
         return fics
 
-    def test(self, num):
-        print(687, num)
+    def get_fics_to_download(self):
+        fics = {}
+        docs = self.db.collection('downloads').stream()
+        for doc in docs:
+            fics.update({doc.id : doc.to_dict()})
+        return fics
+    
+    def delete_fic_from_downloads(self, id):
+        self.db.collection('downloads').document(id).delete()
+
+    # def test(self, num):
+    #     print(687, num)
