@@ -19,13 +19,13 @@ class FanFicDatabase():
         except:
             cred = credentials.Certificate("keys/fanfic-server-firebase-adminsdk-r288u-1a705e4916.json")
         firebase_admin.initialize_app(cred)
-        print('taco taoc')
         self.db = firestore.client()
         # doc_ref = self.db.collection('users').document('aturing').delete()
     
     def add_fic(self, url : str):
         id = url_parser.get_id_str(url)
         self.db.collection('fanfics').document(id).set({'title' : '', 'url' : url})
+        
 
     def get_all_fics(self):
         fics = {}
