@@ -27,4 +27,11 @@ Design Decisions:
     - Send url to be downloaded + emailed by worker process 
 
 Commands:
-active venv: source venv/bin/activate
+
+active venv: 
+
+source venv/bin/activate
+
+enable debug mode:
+
+export FLASK_ENV=development
