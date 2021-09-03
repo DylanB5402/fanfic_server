@@ -17,8 +17,8 @@ if __name__ == '__main__':
             key1 = list(download_data.keys())[0]
             fic_url = download_data[key1]['url']
             my_email = "dylanb5402@gmail.com"
-            # kindle_email = "dylanb5402@kindle.com"
-            kindle_email = "d.barva5402@gmail.com"
+            kindle_email = "dylanb5402@kindle.com"
+            # kindle_email = "d.barva5402@gmail.com"
             my_password = ""
             try:
                 my_password = os.environ['KINDLE_PASSWORD']
